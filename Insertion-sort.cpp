@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <iostream>
-
 using namespace std;
-
-
 void insert(int arr[], int n){
     int i, j, temp;
 
@@ -20,10 +17,6 @@ void insert(int arr[], int n){
 
     }
 }
-
-
-
-
 int main(){
     //selection sort
 
