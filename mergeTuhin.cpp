@@ -13,7 +13,6 @@ void printMerge(int arr[],int lb ,int ub)
 }
 
 
-
 void merge(int arr[], int lb,int mid,int ub)
 {
     int i = lb;
