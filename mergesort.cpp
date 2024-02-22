@@ -1,81 +1,61 @@
-// write a mergesort code
-// Date: 2021/10/10
-
 #include <stdio.h>
 #include <iostream>
+
 using namespace std;
 
-void merge(int arr[], int l, int m, int r)
-{
-    int i, j, k;
-    int n1 = m - l + 1;
-    int n2 = r - m;
 
-    int L[n1], R[n2];
+void mergee(int A[], int lb, int mid, int ub){
+    int i = lb;
+    int j = mid+1;
+    int k = lb;
 
-    for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
-
-    for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1 + j];
-
-    i = 0;
-    j = 0;
-    k = l;
-
-    while (i < n1 && j < n2)
-    {
-        if (L[i] <= R[j])
-        {
-            arr[k] = L[i];
+    int B[ub+1];
+    while(i<=mid && j<=ub){
+        if(A[i]<=A[j]){
+            B[k] = A[i];
             i++;
         }
-        else
-        {
-            arr[k] = R[j];
+        else{
+            B[k] = A[j];
             j++;
         }
         k++;
     }
 
-    while (i < n1)
-    {
-        arr[k] = L[i];
-        i++;
-        k++;
+    if(i>mid){
+        while(j<=ub){
+            B[k] = A[j];
+            j++;
+            k++;
+        }
     }
-
-    while (j < n2)
-    {
-        arr[k] = R[j];
-        j++;
-        k++;
-    }
-}
-
-void mergeSort(int arr[], int l, int r)
-{
-    if (l < r)
-    {
-        int m = l + (r - l) / 2;
-
-        mergeSort(arr, l, m);
-        mergeSort(arr, m + 1, r);
-
-        merge(arr, l, m, r);
+    else{
+        while(i<=mid){
+            B[k] = A[i];
+            i++;
+            k++;
+        }
     }
 }
 
 
-int main()
-{
-    int data[] = {20, 12, 10, 15, 2};
-    int size = sizeof(data) / sizeof(data[0]);
-    mergeSort(data, 0, size - 1);
-    printf("Sorted array in Acsending Order:\n");
-    for (int i = 0; i < size; i++)
-    {
-        printf("%d \t", data[i]);
+void mergesort(int A[], int lb, int ub){
+    if(lb<ub){
+        int mid = (lb+ub)/2;
+        mergesort(A,lb,mid);
+        mergesort(A,mid+1,ub);
+        mergee(A,lb,mid,ub);
+    }
+}
+
+
+int main(){
+    int A[] = {10,14,33,35,42,44,19,26,27,31};
+    int lb = 0;
+    int ub = 9;
+    mergesort(A,lb,ub);
+    for(int i=0; i<10; i++){
+        cout << A[i] << " ";
     }
     return 0;
 }

@@ -3,6 +3,9 @@
 
 using namespace std;
 
+//Time complexity O(nlogn)
+
+
 struct Product{
     int weight;
     int profit;

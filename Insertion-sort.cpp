@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 void insert(int arr[], int n){
-    int i, j, temp;
+     i, j, temp;
 
     for(i=1;i<n;i++ ){
         temp = arr[i];
@@ -38,6 +38,7 @@ int main(){
     for(int i=0;i<size;i++){
         printf("%d \t",arr[i]);
     }
+    
 
 
 }
