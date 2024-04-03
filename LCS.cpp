@@ -1,66 +1,58 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<string>
+#include<algorithm>
+
 using namespace std;
 
-int main()
-{
 
-    string name1 = "president";
-
-    string name2 = "providence";
-
-    int m = name1.length();
-    int n = name2.length();
-
-    int container[m + 1][n + 1];
-
-    for (int i = 0; i <= m; i++)
-    {
-        for (int j = 0; j <= n; j++)
-        {
-            container[i][j] = 0;
-        }
-    }
-
-    for (int i = 1; i <= m; i++)
-    {
-        for (int j = 1; j <= n; j++)
-        {
-            if (name1[i - 1] == name2[j - 1])
-            {
-                container[i][j] = container[i - 1][j - 1] + 1;
+int LCS(string s1, string s2, int n, int m) {
+    int dp[n+1][m+1];
+    for(int i = 0; i <= n; i++) {
+        for(int j = 0; j <= m; j++) {
+            if(i == 0 || j == 0) {
+                dp[i][j] = 0;
             }
-            else
-            {
-                container[i][j] = max(container[i - 1][j], container[i][j - 1]);
+            else if(s1[i-1] == s2[j-1]) {
+                dp[i][j] = 1 + dp[i-1][j-1]; 
+            }
+            else {
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
             }
         }
     }
-
-    int length = container[m][n];
-
-    cout << "the length of the string is " << length << endl;
-
-    string lcs="";
-    int i = m;
-    int j = n;
-    while (i > 0 && j > 0)
-    {
-        if(name1[i-1]==name2[j-1])
-        {
-            lcs = name1[i-1]+lcs;
+    string ans = "";
+    int i = n, j = m;
+    while(i > 0 && j > 0) {
+        if(s1[i-1] == s2[j-1]) {
+            ans += s1[i-1];
             i--;
             j--;
         }
-        else if(container[i-1][j]>container[i][j-1])
-        {
+        else if(dp[i-1][j] > dp[i][j-1]) {
             i--;
         }
-        else{
+        else {
             j--;
         }
     }
+    reverse(ans.begin(), ans.end());
+    cout << "LCS: " << ans << endl;
+    return dp[n][m];
+}
 
-    cout<<"The string is "<<lcs<<endl;
 
-    return 0;
+
+
+int main(){
+    string s1;
+    string s2;
+    cin>>s1>>s2;
+
+    int n=s1.size();
+    int m=s2.size();
+
+
+    auto ans=LCS(s1,s2,n,m);
+
+    cout<<ans<<endl;
 }

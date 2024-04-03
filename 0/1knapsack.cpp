@@ -14,11 +14,12 @@ int knapsack(int p[], int w[], int W, int n) {
         dp[i][j] = 0;
       } else if (w[i - 1] <= j) {
 
-        dp[i][j] = max(p[i - 1] + dp[i - 1][j - w[i - 1]], dp[i - 1][j]);
+        // dp[i][j] = max(p[i - 1] + dp[i - 1][j - w[i - 1]], dp[i - 1][j]);
+        dp[i][j] = max(dp[i-1][j] , dp[i-1][j - w[i-1]] + p[i-1]);
 
       } else {
         dp[i][j] = dp[i - 1][j];
-      }
+      } 
     }
   }
 
@@ -26,9 +27,9 @@ int knapsack(int p[], int w[], int W, int n) {
 }
 
 int main() {
-  int W = 8;
-  int p[] = {1, 2, 5, 6};
-  int w[] = {2, 3, 4, 5};
+  int W = 5;
+  int p[] = {4,3,6,5};
+  int w[] = {3,2,5,4};
 
   int n = sizeof(p) / sizeof(p[0]);
 
